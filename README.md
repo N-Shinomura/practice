@@ -25,7 +25,7 @@ When you code alone, you just save files and you're done. When two people work o
 
 Datasets are shared on Google Drive because they're too large for GitHub.
 
-**Download link:** [TODO: paste Google Drive link here]
+**Download link:** [Google Drive](https://drive.google.com/drive/folders/1HWwIJHh3kTHf6slrypHvG1DTxCP88F0O?usp=sharing)
 
 After you clone this repo, download the `Datasets` folder from Drive and put it here:
 

@@ -18,14 +18,15 @@ cd practice              # now you're inside the project
 
 ## How to make changes (step by step)
 
-Once you get (pull) the remote files, you can make changes. But you never edit the main code directly. Instead, you make a copy (called a **branch**), work on that, and then ask your teammate to check it before it gets added.
+Once you get (pull) the remote files, you can make changes. But you never edit the main code directly. Instead, you make a copy of the entire project (called a **branch**). This branch has all the same files — you just work on it without affecting `main`. When you're done editing, you upload your branch to GitHub (called **pushing**), then create a request on GitHub asking your teammate to look at your changes (called a **Pull Request**). Your teammate reads through what you changed, and if it looks good, adds it into `main`.
 
 ```bash
 # 1. Get the latest code first
 git pull origin main
 
-# 2. Make your own branch (replace "your-feature" with what you're doing)
-git checkout -b feature/your-feature
+# 2. Make your own branch — name it after your task
+#    e.g. if you're replicating Table 2: git checkout -b feature/table2
+git checkout -b feature/your-task-name
 
 # 3. Do your work — edit files, add files, etc.
 

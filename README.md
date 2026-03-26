@@ -1,6 +1,6 @@
 # Practice
 
-We use this repo to learn how to work on code together using Git and GitHub.
+We use this repo to learn how to work on code together using Git and GitHub. Our practice project is replicating **Giroud et al. (2026)** "Innovation Spillovers across U.S. Tech Clusters" from the *Journal of Financial Economics*. The original replication package includes Stata/SAS code and datasets — we use those as our starting point.
 
 ## What is this about?
 

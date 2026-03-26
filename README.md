@@ -6,6 +6,20 @@ We use this repo to learn how to work on code together using Git and GitHub.
 
 When you code alone, you just save files and you're done. When two people work on the same project, you need a system so you don't overwrite each other's work. That system is **Git** (tracks changes) + **GitHub** (stores the code online and lets you review each other's work).
 
+## Data (not in Git — too big)
+
+Datasets are shared on Google Drive because they're too large for GitHub.
+
+**Download link:** [TODO: paste Google Drive link here]
+
+After you clone this repo, download the `Datasets` folder from Drive and put it here:
+
+```
+Replication Package Spillovers JFE/Datasets/
+```
+
+So it looks like the original replication package.
+
 ## First time setup
 
 Open your terminal, go to the folder where you want to keep this project, and run:

@@ -28,3 +28,12 @@ build/
 
 # Logs
 *.log
+
+# Large data files (share via cloud, not Git)
+*.dta
+*.sas7bdat
+*.csv
+*.pdf
+
+# Replication results
+*.smcl

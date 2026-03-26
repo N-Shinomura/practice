@@ -17,23 +17,9 @@ practice/                          ← your project root
 │   └── READ ME.pdf                ← replication instructions (tracked)
 ```
 
-## What is this about?
+## Here we practice
 
-When you code alone, you just save files and you're done. When two people work on the same project, you need a system so you don't overwrite each other's work. That system is **Git** (tracks changes) + **GitHub** (stores the code online and lets you review each other's work).
-
-## Data (not in Git — too big)
-
-Datasets are shared on Google Drive because they're too large for GitHub.
-
-**Download link:** [Google Drive](https://drive.google.com/drive/folders/1HWwIJHh3kTHf6slrypHvG1DTxCP88F0O?usp=sharing)
-
-After you clone this repo, download the `Datasets` folder from Drive and put it here:
-
-```
-Replication Package Spillovers JFE/Datasets/
-```
-
-So it looks like the original replication package.
+How to work on code with another person without overwriting each other's work. We use **Git** (tracks changes on your computer) and **GitHub** (stores the code online so both of us can access it, review changes, and merge work together).
 
 ## First time setup
 
@@ -123,3 +109,17 @@ Pick the right version (or combine them), delete the `<<<` `===` `>>>` markers, 
 git add .
 git commit -m "fix merge conflict"
 ```
+
+## Data (not in Git — too big)
+
+Datasets are shared on Google Drive because they're too large for GitHub.
+
+**Download link:** [Google Drive](https://drive.google.com/drive/folders/1HWwIJHh3kTHf6slrypHvG1DTxCP88F0O?usp=sharing)
+
+After you clone this repo, download the `Datasets` folder from Drive and put it here:
+
+```
+Replication Package Spillovers JFE/Datasets/
+```
+
+So it looks like the original replication package.

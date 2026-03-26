@@ -2,6 +2,21 @@
 
 We use this repo to learn how to work on code together using Git and GitHub. Our practice project is replicating **Giroud et al. (2026)** "Innovation Spillovers across U.S. Tech Clusters" from the *Journal of Financial Economics*. The original replication package includes Stata/SAS code and datasets — we use those as our starting point.
 
+## Folder structure
+
+```
+practice/                          ← your project root
+├── README.md                      ← project info (tracked in Git)
+├── WORKFLOW.md                    ← VS Code + Claude Code tips (tracked)
+├── .gitignore                     ← tells Git what to skip
+├── Giroud et al. 2026 - ....pdf   ← the paper (tracked)
+├── Replication Package Spillovers JFE/
+│   ├── Programs/                  ← code files (tracked in Git)
+│   ├── Datasets/                  ← data files (NOT in Git — on Google Drive)
+│   ├── Results/                   ← output files (NOT in Git — on Google Drive)
+│   └── READ ME.pdf                ← replication instructions (tracked)
+```
+
 ## What is this about?
 
 When you code alone, you just save files and you're done. When two people work on the same project, you need a system so you don't overwrite each other's work. That system is **Git** (tracks changes) + **GitHub** (stores the code online and lets you review each other's work).
@@ -53,7 +68,7 @@ git commit -m "a short note about what you changed and why"
 git push origin feature/your-feature
 ```
 
-Then go to GitHub, and you'll see a button to open a **Pull Request (PR)**. A PR is basically saying "hey, I made some changes — can you look at them before we add them to the main code?"
+Then go to GitHub, and you'll see a button to open a **Pull Request**. A Pull Request is basically saying "hey, I made some changes — can you look at them before we add them to the main code?"
 
 Your teammate looks at it, and if it's good, they merge it (adds it to the main code).
 
@@ -61,8 +76,8 @@ Your teammate looks at it, and if it's good, they merge it (adds it to the main 
 
 1. **Don't change `main` directly.** Always make a branch first.
 2. **Write commit messages that say why.** "fix login bug" is better than "update file".
-3. **One change per PR.** Don't bundle 5 different things in one PR — it's hard to review.
-4. **Let your teammate merge your PR.** A second pair of eyes catches problems.
+3. **One change per Pull Request.** Don't bundle 5 different things — it's hard to review.
+4. **Let your teammate merge your Pull Request.** A second pair of eyes catches problems.
 
 ## Name your branches like this
 

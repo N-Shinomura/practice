@@ -34,6 +34,8 @@ build/
 *.sas7bdat
 *.csv
 *.pdf
+# But keep the replication README
+!Replication Package Spillovers JFE/READ ME.pdf
 
 # Replication results
 *.smcl

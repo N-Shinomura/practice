@@ -37,15 +37,12 @@ So it looks like the original replication package.
 
 ## First time setup
 
-Open your terminal, go to the folder where you want to keep this project, and run:
+Pick a folder where you keep all your coding projects (e.g. `~/ghub` or `~/projects`). Keeping all repos in one place makes them easy to find. Then clone:
 
 ```bash
-cd ~/your-folder        # go to wherever you want to put it
 git clone https://github.com/N-Shinomura/practice.git
-cd practice             # now you're inside the project
+cd practice
 ```
-
-This creates a folder called `practice` with all the files in it.
 
 ## How to make changes (step by step)
 

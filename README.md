@@ -2,37 +2,23 @@
 
 We use this repo to learn how to work on code together using Git and GitHub. Our practice project is replicating **Giroud et al. (2026)** "Innovation Spillovers across U.S. Tech Clusters" from the *Journal of Financial Economics*. The original replication package includes Stata/SAS code and datasets — we use those as our starting point.
 
-## Folder structure
-
-```
-practice/                          ← your project root
-├── README.md                      ← project info (tracked in Git)
-├── WORKFLOW.md                    ← VS Code + Claude Code tips (tracked)
-├── .gitignore                     ← tells Git what to skip
-├── Giroud et al. 2026 - ....pdf   ← the paper (tracked)
-├── Replication Package Spillovers JFE/
-│   ├── Programs/                  ← code files (tracked in Git)
-│   ├── Datasets/                  ← data files (NOT in Git — on Google Drive)
-│   ├── Results/                   ← output files (NOT in Git — on Google Drive)
-│   └── READ ME.pdf                ← replication instructions (tracked)
-```
-
 ## Here we practice
 
-How to work on code with another person without overwriting each other's work. We use **Git** (tracks changes on your computer) and **GitHub** (stores the code online so both of us can access it, review changes, and merge work together).
+how to manage coding files with collaborators. We use **Git** (tracks changes on your computer) and **GitHub** (stores the code online so collaborators can access it, review changes, and merge work together).
 
 ## First time setup
 
-Pick a folder where you keep all your coding projects (e.g. `~/ghub` or `~/projects`). Keeping all repos in one place makes them easy to find. Then clone:
+Pick a folder to keep files for this project (e.g. `~/ghub` or `~/projects`). Keeping all repos in one place makes them easy to find. Open your terminal, go to that folder, and run these commands to download the repo:
 
 ```bash
+cd ~/ghub                # choose the folder for this project
 git clone https://github.com/N-Shinomura/practice.git
-cd practice
+cd practice              # now you're inside the project
 ```
 
 ## How to make changes (step by step)
 
-You never edit the main code directly. Instead, you make a copy (called a **branch**), work on that, and then ask your teammate to check it before it gets added.
+Once you get (pull) the remote files, you can make changes. But you never edit the main code directly. Instead, you make a copy (called a **branch**), work on that, and then ask your teammate to check it before it gets added.
 
 ```bash
 # 1. Get the latest code first
@@ -61,23 +47,10 @@ Your teammate looks at it, and if it's good, they merge it (adds it to the main 
 2. **Write commit messages that say why.** "fix login bug" is better than "update file".
 3. **One change per Pull Request.** Don't bundle 5 different things — it's hard to review.
 4. **Let your teammate merge your Pull Request.** A second pair of eyes catches problems.
-
-## Name your branches like this
-
-So it's clear what the branch is for:
-
-- `feature/login-page` — you're adding something new
-- `fix/broken-button` — you're fixing something
-- `docs/update-readme` — you're updating documentation
-
-## Working together vs working alone
-
-When you code alone, none of this matters. With a teammate, these habits prevent problems:
-
-- **Always `git pull` before you start working.** Your teammate may have changed things since you last looked.
-- **Never run `git push --force`.** This can delete your teammate's work from GitHub. Just don't do it.
-- **Tell each other what you're working on.** If you both edit the same file at the same time, Git won't know whose version to keep. That's called a merge conflict and it's annoying. A quick message like "I'm editing app.js" prevents it.
-- **Push your code often.** If you wait days to push, your code and your teammate's code will be very different, and merging gets messy.
+5. **Always `git pull` before you start working.** Your teammate may have pushed changes since you last looked.
+6. **Push your code often.** Don't sit on changes for days — small frequent pushes are easier to merge.
+7. **Tell each other what you're working on.** Editing the same file at the same time causes merge conflicts.
+8. **Name your branches clearly:** `feature/login-page` (new), `fix/broken-button` (fix), `docs/update-readme` (docs).
 
 ## What to do when you get a merge conflict
 
@@ -110,16 +83,12 @@ git add .
 git commit -m "fix merge conflict"
 ```
 
-## Data (not in Git — too big)
+## Let's begin
 
-Datasets are shared on Google Drive because they're too large for GitHub.
+1. Clone this repo (see "First time setup" above)
+2. Download the datasets from [Google Drive](https://drive.google.com/drive/folders/1HWwIJHh3kTHf6slrypHvG1DTxCP88F0O?usp=sharing) and place them in `Replication Package Spillovers JFE/Datasets/`
+3. Open the `practice` folder in VS Code
+4. Read `Replication Package Spillovers JFE/READ ME.pdf` to understand what the original code does
+5. Look at the programs in `Programs/` — `simulate.sas`, `data_construction.sas`, and `regressions.do`
+6. Pick a table from the paper to replicate together in R or Python
 
-**Download link:** [Google Drive](https://drive.google.com/drive/folders/1HWwIJHh3kTHf6slrypHvG1DTxCP88F0O?usp=sharing)
-
-After you clone this repo, download the `Datasets` folder from Drive and put it here:
-
-```
-Replication Package Spillovers JFE/Datasets/
-```
-
-So it looks like the original replication package.

@@ -6,9 +6,26 @@ We use this repo to learn how to work on code together using Git and GitHub. Our
 
 how to manage coding files with collaborators. We use **Git** (tracks changes on your computer) and **GitHub** (stores the code online so collaborators can access it, review changes, and merge work together).
 
+## Common terms
+
+| Term | What it means |
+|------|--------------|
+| **repo** | A project folder tracked by Git |
+| **clone** | Download a repo from GitHub to your computer |
+| **pull** | Download the latest changes from GitHub |
+| **push** | Upload your changes to GitHub |
+| **commit** | A saved snapshot of your changes, with a message |
+| **main** | The default branch — the "official" version of the project |
+| **branch** | A copy of the project where you work without affecting `main` |
+| **merge** | Combine one branch's changes into another |
+| **merge conflict** | Two people changed the same part of a file and Git can't decide which to keep |
+| **Pull Request** | A request to merge your branch into `main`, so your teammate can review first |
+| **local** | The version of the repo on your computer |
+| **remote (origin)** | The version of the repo on GitHub |
+
 ## First time setup
 
-Pick a folder to keep files for this project (e.g. `~/ghub` or `~/projects`). Keeping all repos in one place makes them easy to find. Open your terminal, go to that folder, and run these commands to download the repo:
+Pick a folder to keep files for this project (e.g. `~/ghub` or `~/projects`) on your computer. Keeping many different repositories in one parent folder is convenient. Open your terminal, and run these commands to download the repo:
 
 ```bash
 cd ~/ghub                # choose the folder for this project
@@ -92,4 +109,3 @@ git commit -m "fix merge conflict"
 4. Read `Replication Package Spillovers JFE/READ ME.pdf` to understand what the original code does
 5. Look at the programs in `Programs/` — `simulate.sas`, `data_construction.sas`, and `regressions.do`
 6. Pick a table from the paper to replicate together in R or Python
-

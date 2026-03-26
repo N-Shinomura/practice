@@ -36,6 +36,7 @@ build/
 *.pdf
 # But keep the replication README
 !Replication Package Spillovers JFE/READ ME.pdf
+!Giroud et al. 2026 - Innovation spillovers across U.S. tech clusters.pdf
 
 # Replication results
 *.smcl

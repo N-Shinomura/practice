@@ -93,13 +93,19 @@ run;
 
 *3. global spillovers (Table 4);
 
+/* -- Global (across-cluster) spillover measure --
+   A firm must operate in >1 BEA area to have cross-cluster exposure.
+   For each plant, cluster_global = sum of local cluster sizes at the firm's
+   OTHER locations minus the plant's own local cluster.
+   nclusters = number of other clusters the firm connects to. */
+
 data g1; set table3a; run;
 
 proc sort data=g1; by firmid year field bea; run;
 proc sort data=g1 nodupkey; by firmid year field bea; run;
 proc sort data=g1; by firmid year field; run;
 proc means data=g1 noprint; by firmid year field; var bea; output out=g2 n=nbea; run;
-data g2; set g2; if nbea > 1; run;
+data g2; set g2; if nbea > 1; run;  /* Keep only multi-location firms */
 data g2 (keep=firmid year field); set g2; run;
 
 proc sql; create table g3 as select * from table3a as a, g2 as b
@@ -123,6 +129,12 @@ run;
 
 *4. global spillovers (Table 5 columns 1-2, placebo);
 
+/* -- Placebo test --
+   For each innovative firm, find BEA areas where the firm has plants but
+   ZERO inventors. Sum cluster sizes in those "non-inventor" locations to get
+   clusterplacebo. If spillovers are real, this placebo measure should have
+   no effect on innovation outcomes. */
+
 data h1; set datasets.cmf; run;
 proc sql; create table h2 as select * from h1 as a, firmfield as b where a.firmid=b.firmid and a.year=b.year; run; *firms with at least one inventor;
 
@@ -145,11 +157,16 @@ run;
 
 *5. global spillovers (Table 5 column 3, non-innovating plants);
 
+/* -- Cross-cluster spillovers for non-innovating plants --
+   For plants with no inventors, compute spillover exposure from the firm's
+   OTHER BEA locations (bea ~= b.bea). clusteradj subtracts own-firm
+   inventors so the measure is leave-one-out. */
+
 data d1; set datasets.cmf; if inv = 0; run;
 proc sql; create table d2 as select * from d1 as a, firmfield as b
 	where a.firmid=b.firmid and a.year=b.year; run;
 
-data d3; set firmbeafieldyear; run; 
+data d3; set firmbeafieldyear; run;
 proc sql; create table d4 as select * from d3 as a, datasets.cluster as b
 	where a.bea=b.bea and a.field=b.field and a.year=b.year; run;
 data d4; set d4; clusteradj = cluster - inv_fbfy; run;
@@ -214,6 +231,12 @@ proc export data = table5c
 run;
 
 *7. IV (Table 6);
+
+/* -- Instrumental variable (Z) construction --
+   Z exploits the network of multi-establishment firms: for a focal plant,
+   Z sums inventors at locations of OTHER firms that share a cluster with the
+   focal firm's siblings — but only in BEAs where the focal firm itself has
+   no presence. This provides plausibly exogenous variation in cluster size. */
 
 data g1; set table3a; run;
 proc sort data=g1; by firmid year field bea; run;

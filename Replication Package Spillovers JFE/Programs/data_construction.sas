@@ -4,11 +4,31 @@
 ************************************;
 ************************************;
 
+/* This program takes the raw plant-level (datasets.cmf) and cluster-level
+   (datasets.cluster) panels from simulate.sas and constructs the analysis
+   datasets needed for each regression table in the paper:
+     t2.dta  - firm-level summary statistics           (Table 2)
+     t3a.dta - local spillovers, innovative plants     (Table 3, cols 1-4)
+     t3b.dta - local spillovers, non-innovative plants (Table 3, col 5)
+     t4.dta  - global (across-cluster) spillovers      (Table 4)
+     t5a.dta - placebo test                            (Table 5, cols 1-2)
+     t5b.dta - non-innovating plants, adjusted cluster (Table 5, col 3)
+     t5c.dta - non-innovating plants, global spillover (Table 5, col 4)
+     t6.dta  - IV regressions                          (Table 6)
+     t7a/b/c - distance-based spillovers at 100/250/500 mi (Table 7)
+     S.dta, Omega.dta, R.dta - sufficient-statistics matrices (Tables 9-11)
+     Size.dta, Connectedness.dta - cluster characteristics   (Tables 9-11) */
+
 %let path = C:\Users\xg2285\Dropbox\Replication Package Spillovers JFE;
 
 libname datasets "&&path\Datasets\";
 
 *0 auxiliary datasets;
+
+/* -- firmfield: each firm's "main" research field per year --
+   Among innovative plants (inv > 0), sum patents by firm x field x year.
+   The field with the most patents is flagged as the firm's primary field (ffield).
+   This is used later to assign a research field to non-innovative plants. */
 
 data c1; set datasets.cmf; if inv ~= 0; run;
 proc sort data=c1; by year firmid field; run;
@@ -18,12 +38,20 @@ data c2; set c2; by year firmid; if first.firmid = 1 then main = 1; run;
 data c2 (rename=(field=ffield)); set c2; if main = 1; run;
 data firmfield (keep=firmid year ffield); set c2; run;
 
+/* -- firmbeafieldyear: total inventors per firm x BEA x field x year --
+   Used to subtract a firm's own inventors when computing "leave-out" cluster
+   measures (so a plant's own firm doesn't count toward its spillover exposure). */
+
 data c3; set datasets.cmf; if inv ~= 0; run;
 proc sort data=c3; by firmid bea field year; run;
 proc means data=c3 noprint; var inv; by firmid bea field year; output out=c4 sum=inv_fbfy; run;
-data firmbeafieldyear (keep=firmid bea field year inv_fbfy); set c4; run; 
+data firmbeafieldyear (keep=firmid bea field year inv_fbfy); set c4; run;
 
 *1. local spillovers (Table 3 columns 1-4);
+
+/* Keep only innovative plants, merge with firm-level inventor counts and
+   cluster totals. cluster_local = total cluster inventors minus the focal
+   firm's own inventors in that cluster (leave-one-out measure). */
 
 data b1; set datasets.cmf; if inv ~= 0; run;
 proc sql; create table b2 as select * from b1 as a, firmbeafieldyear as b
@@ -41,6 +69,10 @@ proc export data = table3a
 run;
 
 *2. local spillovers (Table 3 column 5, non-innovating plants);
+
+/* Same local-spillover measure but for plants with zero inventors.
+   These plants are assigned their firm's primary field (ffield) so they
+   can still be linked to a technology cluster. */
 
 data d1; set datasets.cmf; if inv = 0; run;
 proc sql; create table d2 as select * from d1 (drop=field) as a, firmfield as b where a.firmid=b.firmid and a.year=b.year; run;

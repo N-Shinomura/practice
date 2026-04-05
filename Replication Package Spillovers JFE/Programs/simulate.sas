@@ -4,11 +4,24 @@
 *************************************;
 *************************************;
 
+/* This program creates simulated (synthetic) data that mirrors the structure of
+   the confidential Census microdata used in Giroud et al. (2026). The synthetic
+   data lets users test the full pipeline (data_construction.sas -> regressions.do)
+   without access to the restricted-use Census files (CMF/ASM/LBD).
+
+   Two datasets are produced:
+     - datasets.cmf   : plant-year panel with firm, location, industry, and outcomes
+     - datasets.cluster: cluster-level inventor counts by BEA economic area x field x year */
+
 %let path = C:\Users\xg2285\Dropbox\Replication Package Spillovers JFE;
 
 libname datasets "&&path\Datasets\";
 
 *a. Plant-level data;
+
+/* -- Build a geographic crosswalk: ZIP -> county FIPS -> BEA economic area --
+   This crosswalk is needed to assign each simulated plant a real U.S. location
+   so that distance-based spillover measures (Table 7) work correctly. */
 
 data geo_sas (keep=state county statename countynm zip x y fips);
 	set sashelp.zipcode;	/* Import SAS geocodes */
@@ -38,6 +51,12 @@ proc sort data=geo nodupkey; by zip state county; run;	/* no duplicates */
 data geo; set geo; zipid = _N_; run;
 data datasets.geo; set geo; run;
 
+/* -- Simulate the plant-year panel (analogous to Census CMF/ASM/LBD) --
+   Each of 50,000 plants is randomly assigned a firm, SIC industry, ZIP code,
+   research field, and innovative-plant indicator. For each plant-year (1976-2018)
+   we draw employment, payroll, shipments, TFP, inventor counts, patents, and
+   citation shares from uniform or normal distributions. */
+
 data a1; /* Simulate data from Census CMF/ASM/LBD */
 	call streaminit(123);       	/* set random number seed */
 		do lbdnum = 1 to 50000;							/* plant identifiers */
@@ -61,13 +80,21 @@ data a1; /* Simulate data from Census CMF/ASM/LBD */
 	end;
 run;
 
+/* Merge simulated plants with the geographic crosswalk to attach real
+   state, county, FIPS, BEA, and lat/lon coordinates to each plant. */
 proc sql; create table a2 as select * from a1 as a,
 	geo as b where a.zipid = b.zipid; run;
 data a2 (drop=zipid); set a2; run;
 
-data datasets.cmf; set a2; run;
+data datasets.cmf; set a2; run;  /* Save the plant-year panel */
 
 *b. Cluster-level data;
+
+/* -- Build the cluster dataset --
+   A "cluster" is defined as a BEA economic area x research field x year cell.
+   Cluster size = total number of inventors in that cell.
+   First, aggregate inventor counts from the plant panel, then add additional
+   simulated cluster-level inventors (cinv) to boost overall cluster size. */
 
 data a5; set datasets.cmf; run;
 proc sort data=a5; by bea year field; run;
@@ -86,12 +113,14 @@ data a7; 							/* Simulate data for clusters */
 		end;
 run;
 
+/* Merge simulated cluster-level inventors with plant-level aggregates to get
+   total cluster size = plant-derived inventors (ninv) + extra inventors (cinv). */
 proc sql; create table a8 as select * from a7 as a left join a6 as b on a.year=b.year and a.bea = b.bea and a.field=b.field; run;
 
 data a8; set a8; cluster = ninv + cinv; run;
 data a8 (keep=cluster bea year field); set a8; run;
 
-data datasets.cluster; set a8; run;
+data datasets.cluster; set a8; run;  /* Save the cluster-level panel */
 
 ***************************;
 ***************************;

@@ -59,7 +59,7 @@ data datasets.geo; set geo; run;
 
 data a1; /* Simulate data from Census CMF/ASM/LBD */
 	call streaminit(123);       	/* set random number seed */
-		do lbdnum = 1 to 5000;							/* plant identifiers */
+		do lbdnum = 1 to 50000;							/* plant identifiers */
 			firmid = 1 + int(5000*rand("Uniform"));     	/* firm identifiers */
 			sic = 2000 + int(1999*rand("Uniform"));	 		/* SIC 2000-3999 (manufacturing) */
 			zipid = 1 + int(41019*rand("Uniform"));		 	/* 41,019 ZIP codes */

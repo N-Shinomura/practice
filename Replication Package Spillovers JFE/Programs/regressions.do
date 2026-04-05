@@ -94,6 +94,7 @@ reghdfe ltfp lcluster [aweight=emp], absorb(ffield#bea#year lbdnum) cluster(bea 
 
 *** TABLE 6 ***;
 
+/* IV regressions: instrument cluster size with Z (network-based shifter) */
 *Columns (1)-(3);
 
 use "t6.dta", clear

@@ -54,4 +54,5 @@ Or just tell Claude Code: "commit my changes and push."
 - **Use source control tab** (left sidebar, branch icon) to see what changed before committing
 - **One task per branch** — don't mix unrelated changes
 - **Talk to Claude Code like a teammate** — "I want to convert this Stata script to Python, where should I start?"
+- **Review PRs carefully** — read every line of the diff before approving; small changes can hide big mistakes
 

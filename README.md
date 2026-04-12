@@ -109,3 +109,8 @@ git commit -m "fix merge conflict"
 4. Read `Replication Package Spillovers JFE/READ ME.pdf` to understand what the original code does
 5. Look at the programs in `Programs/` — `simulate.sas`, `data_construction.sas`, and `regressions.do`
 6. Pick a table from the paper to replicate together in R or Python
+
+
+## New change made by Chihiro
+Assume this comment is inappropriate. After I do pull request, you need to do "Request Changes" with your comment. Thanks!
+
